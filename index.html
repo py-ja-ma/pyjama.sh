@@ -75,20 +75,45 @@
         .quote {
             font-size: 1.25vw;
             text-align: center;
-            color: #ffffff;
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-52%, -50%);
+            transform: translate(-50%, -50%);
             z-index: 1;
             text-shadow: 14px 11px 2px rgba(0, 0, 0, 0.7);
+            cursor: pointer; /* Change cursor to pointer for hover effect */
+        }
+
+        .tooltip {
+            visibility: hidden;
+            width: 120px; /* Adjust width as needed */
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the quote */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s; /* Smooth transition */
+        }
+
+        .quote:hover .tooltip {
+            visibility: visible;
+            opacity: 1; /* Show tooltip on hover */
         }
     </style>
 </head>
 
 <body>
     <div class="bg"></div>
-    <div class="quote" id="quoteDisplay"></div>
+    <div class="quote" id="quoteDisplay">
+        <span id="quoteText"></span>
+        <span class="tooltip" id="authorDisplay"></span>
+    </div>
 
     <script>
         // Function to fetch quotes from the text file
@@ -100,7 +125,7 @@
                 return text.split('\n'); // Split the text into an array of quotes
             } catch (error) {
                 console.error('Error fetching quotes:', error);
-                document.getElementById('quoteDisplay').innerText = 'Failed to load quotes.';
+                document.getElementById('quoteText').innerText = 'Failed to load quotes.';
                 return [];
             }
         }
@@ -110,13 +135,15 @@
             const quotes = await fetchQuotes();
             if (quotes.length > 0) {
                 const randomIndex = Math.floor(Math.random() * quotes.length);
-                document.getElementById('quoteDisplay').innerText = quotes[randomIndex];
+                const selectedQuote = quotes[randomIndex];
+                const [quote, author] = selectedQuote.split(' – '); // Split quote and author
+                document.getElementById('quoteText').innerText = quote.trim();
+                document.getElementById('authorDisplay').innerText = author ? author.trim() : ''; // Set author for tooltip
             }
         }
 
         // Call the function to display a random quote on page load
         displayRandomQuote();
-
     </script>
 </body>
 
