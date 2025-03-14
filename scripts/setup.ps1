@@ -21,7 +21,7 @@ if (-Not (Test-Path $bginfoPath)) {
 # Check if the configuration file exists
 if (-Not (Test-Path $configFilePath)) {
     Write-Host "BGInfo configuration file not found at $configFilePath. Downloading from GitHub..."
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/yourusername/yourrepo/main/pyjama.sh/config.bgi" -OutFile $configFilePath
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pjdotdev/pyjama.sh/main/pyjama.sh/config.bgi" -OutFile $configFilePath
     Write-Host "Configuration file downloaded to $configFilePath."
 } else {
     Write-Host "BGInfo configuration file already exists at $configFilePath."
