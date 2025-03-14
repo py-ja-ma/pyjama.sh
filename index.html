@@ -7,7 +7,7 @@
     <title>pyjama.sh</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        body {
+body {
             background-color: #111111;
             margin: 0;
             overflow-x: hidden;
@@ -29,49 +29,17 @@
         }
 
         @keyframes bg-animation {
-            0% {
-                transform: translate(0, 0);
-            }
-
-            10% {
-                transform: translate(-5%, -5%);
-            }
-
-            20% {
-                transform: translate(-10%, 5%);
-            }
-
-            30% {
-                transform: translate(5%, -10%);
-            }
-
-            40% {
-                transform: translate(-5%, 15%);
-            }
-
-            50% {
-                transform: translate(-10%, 5%);
-            }
-
-            60% {
-                transform: translate(15%, 0);
-            }
-
-            70% {
-                transform: translate(0, 10%);
-            }
-
-            80% {
-                transform: translate(-15%, 0);
-            }
-
-            90% {
-                transform: translate(10%, 5%);
-            }
-
-            100% {
-                transform: translate(5%, 0);
-            }
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+            100% { transform: translate(5%, 0); }
         }
 
         .quote {
@@ -92,18 +60,18 @@
             background-color: rgba(0, 0, 0, 0.32);
             color: #ffffff17;
             text-align: center;
-            border-radius: 20vw;
+            border-radius: 0; /* Remove border radius */
             padding: .5vw;
             position: absolute;
             z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 100%; /* Position below the quote */
+            left: 100%; /* Position to the right of the quote */
+            transform: translate(-50%, 0); /* Center the tooltip horizontally */
             opacity: 0;
-            transition: ease 2s;
+            transition: ease 0.3s; /* Shorter transition for better responsiveness */
             white-space: nowrap;
             text-shadow: none;
-            margin-bottom: 1vh;
+            margin-left: 1vw; /* Space between the quote and the tooltip */
             font-size: .75vw;
         }
 
@@ -128,7 +96,7 @@
                 const response = await fetch('quotes.txt');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const text = await response.text();
-                return text.split('\n'); // Split the text into an array of quotes
+                return text.split('\n'); 
             } catch (error) {
                 console.error('Error fetching quotes:', error);
                 document.getElementById('quoteText').innerText = 'Failed to load quotes.';
@@ -142,13 +110,12 @@
             if (quotes.length > 0) {
                 const randomIndex = Math.floor(Math.random() * quotes.length);
                 const selectedQuote = quotes[randomIndex];
-                const [quote, author] = selectedQuote.split(' – '); // Split quote and author
+                const [quote, author] = selectedQuote.split(' – '); 
                 document.getElementById('quoteText').innerText = quote.trim();
-                document.getElementById('authorDisplay').innerText = author ? author.trim() : ''; // Set author for tooltip
+                document.getElementById('authorDisplay').innerText = author ? `— ${author.trim()}` : ''; 
             }
         }
 
-        // Call the function to display a random quote on page load
         displayRandomQuote();
     </script>
 </body>
