@@ -27,15 +27,12 @@ if (Test-Path $bginfoDir) {
     Write-Host "BGInfo directory not found at $bginfoDir."
 }
 
-# Reset the desktop background to the default Windows wallpaper
-$defaultWallpaperPath = "C:\Windows\Web\Wallpaper\Windows\img0.jpg"  # Default Windows wallpaper path
-if (Test-Path $defaultWallpaperPath) {
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name Wallpaper -Value $defaultWallpaperPath
-    RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
-    Write-Host "Desktop background reset to default."
-} else {
-    Write-Host "Default wallpaper not found at $defaultWallpaperPath."
-}
+# Set the desktop background color to black
+$blackColor = 0x000000  # RGB value for black
+Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name Background -Value "$blackColor"
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+
+Write-Host "Desktop background color set to black."
 
 # Remove environment variables
 [System.Environment]::SetEnvironmentVariable("BGINFO_PATH", $null, [System.EnvironmentVariableTarget]::User)
