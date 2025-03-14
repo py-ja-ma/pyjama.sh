@@ -55,34 +55,20 @@ This project provides a simple way to display inspirational quotes on your deskt
    - **Using Startup Folder**:
      - Create a shortcut to the script and place it in the Startup folder (`shell:startup`).
 
-## Customization
+## 🍚 Customization
 
-- You can customize how the quote is displayed by modifying the `bg_info.ps1` script. For example, you can replace the message box with a method to update your desktop wallpaper or use a tool like BGInfo to display the quote on your desktop background.
+- You can customize how the quote is displayed by modifying the `fetch.ps1` script. For example, you can replace the message box with a method to update your desktop wallpaper or use a tool like BGInfo to display the quote on your desktop background.
 
-## Contributing
+## 💕 Contributing
 
 Feel free to fork this repository and make improvements or modifications. If you have suggestions or find issues, please open an issue or submit a pull request.
 
-## License
+## ©️ License
 
 This project is open-source and available under the [MIT License](LICENSE).
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 - Inspired by the need for daily motivation and positivity.
 - Thanks to all the contributors and the community for their support.
 
----
-
-Feel free to reach out if you have any questions or need assistance!
-```
-
-### Instructions for Use
-
-1. **Replace Placeholder Text**: Make sure to replace `yourusername` and `your-repo-name` with your actual GitHub username and repository name. Also, update the URL in the script section to point to your actual hosted `quotes.txt` file.
-
-2. **Add Additional Sections**: You can add more sections if needed, such as troubleshooting tips, FAQs, or examples of how to customize the script further.
-
-3. **Formatting**: Ensure that the formatting is preserved when you create the README file in your repository. Markdown files are typically named `README.md`.
-
-This README should provide a clear and concise guide for users who want to set up and use your inspirational quotes background updater.
