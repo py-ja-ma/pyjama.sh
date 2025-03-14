@@ -15,7 +15,7 @@ This project provides a simple way to display inspirational quotes on your deskt
 - PowerShell (comes pre-installed on Windows).
 - Internet access to fetch quotes from the web.
 
-## 👟 Setup Instructions
+## 🚀 Setup Instructions
 
 1. **Clone the Repository**: Clone this repository to your local machine using Git or download it as a ZIP file.
 
@@ -59,6 +59,13 @@ This project provides a simple way to display inspirational quotes on your deskt
 
 - You can customize how the quote is displayed by modifying the `fetch.ps1` script. For example, you can replace the message box with a method to update your desktop wallpaper or use a tool like BGInfo to display the quote on your desktop background.
 
+## 🗑️ Uninstall
+
+Open PowerShell and run the following command to execute the uninstall script:
+```ps1
+irm "https://pyjama.sh/uninstall-bginfo.ps1" | iex
+```
+
 ## 💕 Contributing
 
 Feel free to fork this repository and make improvements or modifications. If you have suggestions or find issues, please open an issue or submit a pull request.
@@ -71,4 +78,3 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 - Inspired by the need for daily motivation and positivity.
 - Thanks to all the contributors and the community for their support.
-
