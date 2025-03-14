@@ -74,7 +74,7 @@
             }
         }
 
-        .quote {
+        .container {
             font-size: 2rem;
             text-align: center;
             position: absolute;
@@ -86,7 +86,7 @@
             text-shadow: 14px 11px 2px rgba(0, 0, 0, 0.7);
         }
 
-        .tooltip {
+        .author {
             visibility: hidden;
             width: auto;
             color: #ffffff63;
@@ -104,7 +104,7 @@
             font-size: 1rem;
         }
 
-        .quote:hover .tooltip {
+        .container:hover .author {
             visibility: visible;
             opacity: 1;
         }
@@ -115,7 +115,7 @@
                 font-size: 1.5rem;
             }
 
-            .tooltip {
+            .author {
                 font-size: 0.9rem;
             }
         }
@@ -126,7 +126,7 @@
                 font-size: 1.25vw;
             }
 
-            .tooltip {
+            .author {
                 font-size: 0.75vw;
             }
         }
@@ -135,9 +135,9 @@
 
 <body>
     <div class="bg"></div>
-    <div class="quote" id="quoteDisplay">
-        <span id="quoteText"></span>
-        <span class="tooltip" id="authorDisplay"></span>
+    <div class="container" id="quoteDisplay">
+        <span class="quote" id="quoteText"></span>
+        <span class="author" id="authorDisplay"></span>
     </div>
 
     <script>
