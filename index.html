@@ -89,8 +89,8 @@ body {
 
     <script>
         // Unique quote for the first visit
-        const uniqueQuote = "\"Ah, another day, another drink—let’s toast. 🍻\""; // Change this to your unique quote
-        const uniqueAuthor = "pj"; // Change this to the author of the unique quote
+        const uniqueQuote = "\"Perfection is not the goal; understanding, connection, and growth are.\"";
+        const uniqueAuthor = "Yo-Yo Ma"; 
 
         // Function to fetch quotes from the text file
         async function fetchQuotes() {
@@ -124,9 +124,9 @@ body {
                 if (quotes.length > 0) {
                     const randomIndex = Math.floor(Math.random() * quotes.length);
                     const selectedQuote = quotes[randomIndex];
-                    const [quote, author] = selectedQuote.split(' – '); // Split quote and author
+                    const [quote, author] = selectedQuote.split(' – '); 
                     document.getElementById('quoteText').innerText = quote.trim();
-                    document.getElementById('authorDisplay').innerText = author ? `— ${author.trim()}` : ''; // Set author for tooltip
+                    document.getElementById('authorDisplay').innerText = author ? `— ${author.trim()}` : ''; 
                 }
             }
         }
