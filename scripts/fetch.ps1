@@ -1,5 +1,4 @@
-# fetch.ps1
-
+# Fetch.ps1
 # URL of the website to fetch the quote from
 $url = "https://pyjama.sh/quotes.txt"
 
@@ -16,21 +15,15 @@ try {
     # Split the quote into text and author
     $quoteParts = $randomQuote -split ' – '
     $quoteText = $quoteParts[0].Trim()
-    $authorText = if ($quoteParts.Length -gt 1) { "— $($quoteParts[1].Trim())" 
-    } else { "" }
-
-    # Create unique variable names using the current user's name and a timestamp
-    $quoteVarName = "BGINFO_QUOTE"
-    $authorVarName = "BGINFO_AUTHOR"
+    $authorText = if ($quoteParts.Length -gt 1) { "— $($quoteParts[1].Trim())" } else { "" }
 
     # Set the environment variables
-    [System.Environment]::SetEnvironmentVariable($quoteVarName, $quoteText, [System.EnvironmentVariableTarget]::User)
-    [System.Environment]::SetEnvironmentVariable($authorVarName, $authorText, [System.EnvironmentVariableTarget]::User)
+    [System.Environment]::SetEnvironmentVariable("BGINFO_QUOTE", $quoteText, [System.EnvironmentVariableTarget]::User)
+    [System.Environment]::SetEnvironmentVariable("BGINFO_AUTHOR", $authorText, [System.EnvironmentVariableTarget]::User)
 
     Write-Host "Quote fetched and saved successfully."
     Write-Host "Quote: $quoteText"
     Write-Host "Author: $authorText"
-    Write-Host "Stored in variables: $quoteVarName and $authorVarName"
 } catch {
     Write-Host "An error occurred while fetching the quote: $_"
 }

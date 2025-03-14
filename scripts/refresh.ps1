@@ -1,3 +1,4 @@
+# Refresh.ps1
 # Check if the environment variables are set
 $bginfoPath = [System.Environment]::GetEnvironmentVariable("BGINFO_PATH", [System.EnvironmentVariableTarget]::User)
 $configFilePath = [System.Environment]::GetEnvironmentVariable("BGINFO_CONFIG", [System.EnvironmentVariableTarget]::User)

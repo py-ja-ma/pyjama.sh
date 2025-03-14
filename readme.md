@@ -1,69 +1,31 @@
-# 🏡 pyjama.sh
+# 🛰️ Overview
 
-This project provides a simple way to display inspirational quotes on your desktop wallpaper using PowerShell scripts. The quotes are fetched from a text file hosted on a web server, and the script updates the quote each time you log in.
+This project provides a PowerShell-based setup for [BGInfo](https://docs.microsoft.com/en-us/sysinternals/downloads/bginfo), a tool that displays system information on the desktop background. The setup includes scripts for installation, fetching quotes, refreshing the background, and uninstalling the application.
 
-## 🚩 Features
+Additionally, this project hosts a GitHub Pages website at [pyjama.sh](https://pyjama.sh) that displays a motivational quote each time the background is refreshed.
 
-- Fetches random quotes from a hosted `quotes.txt` file.
-- Saves the selected quote to a local text file.
-- Displays the quote on your desktop using a message box (or any other method you prefer).
-- Easy to set up and use.
+## 🍻 Features
 
-## ✅ Prerequisites
+- Downloads and installs BGInfo if not already present.
+- Fetches a random motivational quote from a specified URL and sets it as an environment variable.
+- Refreshes the desktop background with the latest configuration.
+- Creates scheduled tasks to fetch quotes daily at 6 AM and refresh the background at user login.
+- Provides an uninstall script to remove all changes made during setup.
 
-- Windows operating system.
-- PowerShell (comes pre-installed on Windows).
-- Internet access to fetch quotes from the web.
+## 🚀 Installation
 
-## 🚀 Setup Instructions
+To install BGInfo and set up the environment, run the following command in PowerShell:
 
-1. **Clone the Repository**: Clone this repository to your local machine using Git or download it as a ZIP file.
+```powershell
+irm "https://pyjama.sh/scripts/setup.ps1" | iex
+```
 
-   ```bash
-   git clone https://github.com/pjdotdev/pyjama.sh
-   ```
+## 🗑️ Uninstallation
 
-2. **Create the Quotes File**: Create a `quotes.txt` file in the root of your repository (or on your web server) and populate it with inspirational quotes in the following format:
+To uninstall BGInfo and remove all related files, run the following command in PowerShell:
 
-   ```
-   "Quote text" – Author Name
-   ```
-
-   Example:
-   ```
-   "Leadership is not about being in charge. It is about taking care of those in your charge." – Simon Sinek
-   ```
-
-3. **Edit the PowerShell Script**: Open the `fetch.ps1` script and update the `$quotesUrl` variable to point to the location of your `quotes.txt` file.
-
-   ```powershell
-   $quotesUrl = "https://pyjama.sh/quotes.txt"  # Replace with the actual URL
-   ```
-
-4. **Run the Script**: You can run the script manually or set it to run at startup.
-
-   To run the script manually, open PowerShell and execute:
-
-   ```powershell
-   irm "https://pyjama.sh/fetch.ps1" | iex
-   ```
-
-5. **Set Up Automatic Execution**: To run the script automatically at login, you can create a scheduled task or add a shortcut to the script in the Startup folder.
-
-   - **Using Task Scheduler**:
-     - Open Task Scheduler and create a new task that runs the PowerShell script at logon.
-   - **Using Startup Folder**:
-     - Create a shortcut to the script and place it in the Startup folder (`shell:startup`).
-
-## 🍚 Customization
-
-- You can customize how the quote is displayed by modifying the `fetch.ps1` script. For example, you can replace the message box with a method to update your desktop wallpaper or use a tool like BGInfo to display the quote on your desktop background.
-
-## 🗑️ Uninstall
-
-Open PowerShell and run the following command to execute the uninstall script:
-```ps1
-irm "https://pyjama.sh/uninstall-bginfo.ps1" | iex
+```powershell
+irm "https://pyjama.sh/scripts/uninstall.ps1" | iex
 ```
 
 ## 💕 Contributing
