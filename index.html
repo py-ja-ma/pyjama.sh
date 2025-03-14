@@ -57,8 +57,7 @@ body {
         .tooltip {
             visibility: hidden;
             width: min-content;
-            background-color: rgba(0, 0, 0, 0.32);
-            color: #ffffff17;
+            color: #ffffff63;
             text-align: center;
             border-radius: 0; /* Remove border radius */
             padding: .5vw;
@@ -68,9 +67,8 @@ body {
             left: 100%; /* Position to the right of the quote */
             transform: translate(-50%, 0); /* Center the tooltip horizontally */
             opacity: 0;
-            transition: ease 0.3s; /* Shorter transition for better responsiveness */
+            transition: ease 0.8s; /* Shorter transition for better responsiveness */
             white-space: nowrap;
-            text-shadow: none;
             margin-left: 1vw; /* Space between the quote and the tooltip */
             font-size: .75vw;
         }
@@ -90,13 +88,17 @@ body {
     </div>
 
     <script>
+        // Unique quote for the first visit
+        const uniqueQuote = "\"Ah, another day, another drink—let’s toast. 🍻\""; // Change this to your unique quote
+        const uniqueAuthor = "pj"; // Change this to the author of the unique quote
+
         // Function to fetch quotes from the text file
         async function fetchQuotes() {
             try {
                 const response = await fetch('quotes.txt');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const text = await response.text();
-                return text.split('\n'); 
+                return text.split('\n'); // Split the text into an array of quotes
             } catch (error) {
                 console.error('Error fetching quotes:', error);
                 document.getElementById('quoteText').innerText = 'Failed to load quotes.';
@@ -106,16 +108,30 @@ body {
 
         // Function to display a random quote
         async function displayRandomQuote() {
-            const quotes = await fetchQuotes();
-            if (quotes.length > 0) {
-                const randomIndex = Math.floor(Math.random() * quotes.length);
-                const selectedQuote = quotes[randomIndex];
-                const [quote, author] = selectedQuote.split(' – '); 
-                document.getElementById('quoteText').innerText = quote.trim();
-                document.getElementById('authorDisplay').innerText = author ? `— ${author.trim()}` : ''; 
+            const firstVisitKey = 'firstVisit';
+            
+            // Check if it's the user's first visit
+            if (!localStorage.getItem(firstVisitKey)) {
+                // This is the user's first visit
+                document.getElementById('quoteText').innerText = uniqueQuote;
+                document.getElementById('authorDisplay').innerText = `— ${uniqueAuthor}`;
+                
+                // Set the key in localStorage to indicate the user has visited
+                localStorage.setItem(firstVisitKey, 'true');
+            } else {
+                // Not the first visit, fetch quotes from the text file
+                const quotes = await fetchQuotes();
+                if (quotes.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * quotes.length);
+                    const selectedQuote = quotes[randomIndex];
+                    const [quote, author] = selectedQuote.split(' – '); // Split quote and author
+                    document.getElementById('quoteText').innerText = quote.trim();
+                    document.getElementById('authorDisplay').innerText = author ? `— ${author.trim()}` : ''; // Set author for tooltip
+                }
             }
         }
 
+        // Call the function to display a random quote on page load
         displayRandomQuote();
     </script>
 </body>
