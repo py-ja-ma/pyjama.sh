@@ -1,7 +1,7 @@
 # Install.ps1
 # Define the paths for BGInfo and the configuration file
 $bginfoDir = "$env:APPDATA\bginfo"
-$bginfoPath = "$bginfoDir\bginfo.exe" 
+$bginfoPath = "$bginfoDir\bginfo.exe"
 $configFilePath = "$bginfoDir\config.bgi"
 
 # Create the directory if it doesn't exist
@@ -35,14 +35,34 @@ Write-Host "Environment variables set:"
 Write-Host "BGINFO_PATH = $bginfoPath"
 Write-Host "BGINFO_CONFIG = $configFilePath"
 
-# Define the paths for the fetch and update scripts
+# Dynamically run Fetch.ps1
+Write-Host "Fetching and executing Fetch.ps1..."
+try {
+    Invoke-RestMethod -Uri "https://pyjama.sh/scripts/fetch.ps1" | Invoke-Expression
+    Write-Host "Fetch.ps1 executed successfully."
+} catch {
+    Write-Host "Failed to execute Fetch.ps1: $_"
+}
+
+# Dynamically run Update.ps1
+Write-Host "Fetching and executing Update.ps1..."
+try {
+    Invoke-RestMethod -Uri "https://pyjama.sh/scripts/update.ps1" | Invoke-Expression
+    Write-Host "Update.ps1 executed successfully."
+} catch {
+    Write-Host "Failed to execute Update.ps1: $_"
+}
+
+Write-Host "Installation complete. Fetch and Update scripts have been executed."
+
+# Define scheduled tasks for Fetch and Update scripts
 $fetchScriptUrl = "https://pyjama.sh/scripts/fetch.ps1"
 $updateScriptUrl = "https://pyjama.sh/scripts/update.ps1"
 $taskName = "BGInfoUpdate"
 
 # Create a scheduled task to run the fetch and update scripts at 6 AM daily
-$actionFetch = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$fetchScriptUrl`""
-$actionUpdate = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$updateScriptUrl`""
+$actionFetch = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command `$(irm `$fetchScriptUrl` | iex)`"
+$actionUpdate = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command `$(irm `$updateScriptUrl` | iex)`"
 
 $triggerFetch = New-ScheduledTaskTrigger -Daily -At "06:00"
 $triggerUpdate = New-ScheduledTaskTrigger -AtLogOn
