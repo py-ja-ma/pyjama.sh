@@ -49,7 +49,7 @@ $actionRefresh = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-E
 $triggerDaily = New-ScheduledTaskTrigger -Daily -At "06:00"
 $triggerLogin = New-ScheduledTaskTrigger -AtLogOn
 
-Register-ScheduledTask -Action $actionRefresh -Trigger @($triggerDaily, $triggerLogin) -TaskName "BGInfoUpdate-Refresh" -User "$env:USERNAME"
+Register-ScheduledTask -Action $actionRefresh -Trigger @($triggerDaily, $triggerLogin) -TaskName "BGInfoUpdate-Refresh" -User "$env:USERNAME" -RunLevel Highest
 Write-Host "Scheduled task created to run Refresh at 6 AM daily or at user login/boot."
 
 Write-Host "Installation completed successfully."
