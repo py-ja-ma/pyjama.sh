@@ -177,7 +177,7 @@
                 if (quotes.length > 0) {
                     const randomIndex = Math.floor(Math.random() * quotes.length);
                     const selectedQuote = quotes[randomIndex];
-                    const [quote, author] = selectedQuote.split(' – ');
+                    const [quote, author] = selectedQuote.split(' | ');
                     document.getElementById('quoteText').innerText = quote.trim();
                     document.getElementById('authorDisplay').innerText = author ? `— ${author.trim()}` : '';
                 }
