@@ -39,7 +39,7 @@ try {
         Write-Host "Scheduled task $taskName not found."
     }
 } catch {
-    Write-Host "Could not remove scheduled task $taskName: $_"
+    Write-Host "Could not remove scheduled task $taskName: $($_)"
 }
 
 # Remove BGInfo directory if it exists
