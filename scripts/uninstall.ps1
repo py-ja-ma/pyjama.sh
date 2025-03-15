@@ -3,6 +3,7 @@
 $bginfoDir = "$env:APPDATA\bginfo"
 $bginfoPath = "$bginfoDir\bginfo.exe"
 $configFilePath = "$bginfoDir\config.bgi"
+$taskName = "BGInfoUpdate"
 
 # Remove the BGInfo executable and configuration file if they exist
 if (Test-Path $bginfoPath) {
@@ -17,6 +18,21 @@ if (Test-Path $configFilePath) {
     Write-Host "Removed BGInfo configuration file at $configFilePath."
 } else {
     Write-Host "BGInfo configuration file not found at $configFilePath."
+}
+
+# Remove registered scheduled tasks
+try {
+    Unregister-ScheduledTask -TaskName "$taskName-Fetch" -Confirm:$false -ErrorAction Stop
+    Write-Host "Removed scheduled task: $taskName-Fetch."
+} catch {
+    Write-Host "Scheduled task $taskName-Fetch not found."
+}
+
+try {
+    Unregister-ScheduledTask -TaskName "$taskName-Refresh" -Confirm:$false -ErrorAction Stop
+    Write-Host "Removed scheduled task: $taskName-Refresh."
+} catch {
+    Write-Host "Scheduled task $taskName-Refresh not found."
 }
 
 # Remove the entire BGInfo directory if it is empty
