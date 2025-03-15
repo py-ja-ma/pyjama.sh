@@ -47,8 +47,8 @@ $actionRefresh = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-E
 $triggerFetch = New-ScheduledTaskTrigger -Daily -At "06:00"
 $triggerRefresh = New-ScheduledTaskTrigger -AtLogOn
 
-# Register the scheduled tasks
-Register-ScheduledTask -Action $actionFetch -Trigger $triggerFetch -TaskName "$taskName-Fetch" -User "$env:USERNAME" -RunLevel Highest
-Register-ScheduledTask -Action $actionRefresh -Trigger $triggerRefresh -TaskName "$taskName-Refresh" -User "$env:USERNAME" -RunLevel Highest
+# Register the scheduled tasks with user-level permissions
+Register-ScheduledTask -Action $actionFetch -Trigger $triggerFetch -TaskName "$taskName-Fetch" -User "$env:USERNAME" -Password $null
+Register-ScheduledTask -Action $actionRefresh -Trigger $triggerRefresh -TaskName "$taskName-Refresh" -User "$env:USERNAME" -Password $null
 
 Write-Host "Scheduled tasks created to run fetch at 6 AM daily and refresh at user login."

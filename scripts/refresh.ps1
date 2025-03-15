@@ -23,6 +23,6 @@ if (-Not (Test-Path $configFilePath)) {
 }
 
 # Run BGInfo with the specified configuration file
-Start-Process -FilePath $bginfoPath -ArgumentList "/nolicense", "/timer:0", "/bg", "/c:$configFilePath"
+Start-Process -FilePath $bginfoPath -ArgumentList "$configFilePath", "/timer:0"
 
 Write-Host "BGInfo has been refreshed with the new configuration."
