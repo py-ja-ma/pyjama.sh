@@ -13,7 +13,7 @@ try {
     $randomQuote = Get-Random -InputObject $quotes
 
     # Split the quote into text and author
-    $quoteParts = $randomQuote -split ' | '
+    $quoteParts = $randomQuote -split ' \| '
     $quoteText = $quoteParts[0].Trim()
     $authorText = if ($quoteParts.Length -gt 1) { "- $($quoteParts[1].Trim())" } else { "" }
 
