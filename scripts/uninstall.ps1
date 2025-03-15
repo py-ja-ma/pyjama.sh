@@ -3,8 +3,10 @@
 $bginfoDir = "$env:APPDATA\bginfo"
 $bginfoPath = "$bginfoDir\bginfo.exe"
 $configFilePath = "$bginfoDir\config.bgi"
+$quoteFilePath = "$bginfoDir\quote.txt"
+$authorFilePath = "$bginfoDir\author.txt"
 $taskName = "BGInfoUpdate"
-$variablesToRemove = @("BGINFO_QUOTE", "BGINFO_AUTHOR", "BGINFO_PATH", "BGINFO_CONFIG")
+$variablesToRemove = @("BGINFO_PATH", "BGINFO_CONFIG")
 
 # Remove the BGInfo executable and configuration file if they exist
 if (Test-Path $bginfoPath) {
@@ -21,6 +23,21 @@ if (Test-Path $configFilePath) {
     Write-Host "BGInfo configuration file not found at $configFilePath."
 }
 
+# Remove quote.txt and author.txt files if they exist
+if (Test-Path $quoteFilePath) {
+    Remove-Item -Path $quoteFilePath -Force
+    Write-Host "Removed quote.txt at $quoteFilePath."
+} else {
+    Write-Host "quote.txt not found at $quoteFilePath."
+}
+
+if (Test-Path $authorFilePath) {
+    Remove-Item -Path $authorFilePath -Force
+    Write-Host "Removed author.txt at $authorFilePath."
+} else {
+    Write-Host "author.txt not found at $authorFilePath."
+}
+
 # Remove registered scheduled tasks
 try {
     Unregister-ScheduledTask -TaskName "$taskName-Fetch" -Confirm:$false -ErrorAction Stop
@@ -30,10 +47,10 @@ try {
 }
 
 try {
-    Unregister-ScheduledTask -TaskName "$taskName-Refresh" -Confirm:$false -ErrorAction Stop
-    Write-Host "Removed scheduled task: $taskName-Refresh."
+    Unregister-ScheduledTask -TaskName "$taskName-Update" -Confirm:$false -ErrorAction Stop
+    Write-Host "Removed scheduled task: $taskName-Update."
 } catch {
-    Write-Host "Scheduled task $taskName-Refresh not found."
+    Write-Host "Scheduled task $taskName-Update not found."
 }
 
 # Remove the entire BGInfo directory if it is empty
@@ -64,7 +81,7 @@ Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name Wallpaper -Value $bla
 Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name WallpaperStyle -Value 2
 Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name TileWallpaper -Value 0
 
-# Refresh the desktop to apply the changes
+# Update the desktop to apply the changes
 Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;

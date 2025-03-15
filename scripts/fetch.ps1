@@ -17,11 +17,23 @@ try {
     $quoteText = $quoteParts[0].Trim()
     $authorText = if ($quoteParts.Length -gt 1) { "— $($quoteParts[1].Trim())" } else { "" }
 
-    # Set the environment variables
-    [System.Environment]::SetEnvironmentVariable("BGINFO_QUOTE", $quoteText, [System.EnvironmentVariableTarget]::User)
-    [System.Environment]::SetEnvironmentVariable("BGINFO_AUTHOR", $authorText, [System.EnvironmentVariableTarget]::User)
+    # Define the path for the bginfo directory
+    $bginfoPath = Join-Path -Path $env:APPDATA -ChildPath "bginfo"
 
-    Write-Host "Quote fetched and saved successfully."
+    # Create the bginfo directory if it doesn't exist
+    if (-not (Test-Path -Path $bginfoPath)) {
+        New-Item -ItemType Directory -Path $bginfoPath | Out-Null
+    }
+
+    # Write the quote to quote.txt
+    $quoteFilePath = Join-Path -Path $bginfoPath -ChildPath "quote.txt"
+    Set-Content -Path $quoteFilePath -Value $quoteText
+
+    # Write the author to author.txt
+    $authorFilePath = Join-Path -Path $bginfoPath -ChildPath "author.txt"
+    Set-Content -Path $authorFilePath -Value $authorText
+
+    Write-Host "Quote and author have been saved successfully."
     Write-Host "Quote: $quoteText"
     Write-Host "Author: $authorText"
 } catch {
