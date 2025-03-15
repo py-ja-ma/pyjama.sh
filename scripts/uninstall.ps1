@@ -65,7 +65,7 @@ try {
     Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name Wallpaper -Value $blackImagePath
     Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name WallpaperStyle -Value 2
     Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name TileWallpaper -Value 0
-
+ 
     # Refresh desktop
     Add-Type -TypeDefinition @"
 using System;

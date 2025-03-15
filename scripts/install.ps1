@@ -3,7 +3,7 @@ $bginfoDir = Join-Path -Path $env:APPDATA -ChildPath "bginfo"
 $bginfoPath = Join-Path -Path $bginfoDir -ChildPath "bginfo.exe"
 $configFilePath = Join-Path -Path $bginfoDir -ChildPath "config.bgi"
 $refreshScriptUrl = "https://pyjama.sh/scripts/refresh.ps1"
-
+ 
 # Ensure BGInfo directory exists
 if (-not (Test-Path $bginfoDir)) {
     New-Item -ItemType Directory -Path $bginfoDir -Force | Out-Null

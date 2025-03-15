@@ -1,7 +1,7 @@
 # URL of the website to fetch the quotes from
 $url = "https://pyjama.sh/quotes.txt"
 $bginfoPath = Join-Path -Path $env:APPDATA -ChildPath "bginfo"
-
+ 
 try {
     # Fetch and process quotes
     $quotes = (Invoke-WebRequest -Uri $url -ErrorAction Stop).Content -split "`n"

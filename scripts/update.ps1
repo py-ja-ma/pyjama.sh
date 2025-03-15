@@ -8,7 +8,7 @@ $filePaths = @(
     @{ Path = "$bginfoDir\quote.txt"; Name = "quote.txt" },
     @{ Path = "$bginfoDir\author.txt"; Name = "author.txt" }
 )
-
+ 
 # Validate essential environment variables and paths
 if (-Not $bginfoPath -or -Not $configFilePath) {
     Write-Host "BGInfo path or configuration file path is not set."
