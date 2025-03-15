@@ -44,9 +44,38 @@ if (Test-Path $bginfoDir) {
 }
 
 # Set the desktop background color to black
-$blackColor = 0x000000  # RGB value for black
-Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name Background -Value "$blackColor"
-RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+# Define the path for the black bitmap image
+$blackImagePath = "$env:TEMP\black.bmp"
+
+# Create a 1x1 black bitmap image
+Add-Type -AssemblyName System.Drawing
+$bitmap = New-Object System.Drawing.Bitmap(1, 1)
+$graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+$graphics.Clear([System.Drawing.Color]::Black)
+$bitmap.Save($blackImagePath, [System.Drawing.Imaging.ImageFormat]::Bmp)
+$graphics.Dispose()
+$bitmap.Dispose()
+
+# Set the desktop wallpaper to the black image
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name Wallpaper -Value $blackImagePath
+
+# Update the wallpaper style (0 = Center, 1 = Tile, 2 = Stretch)
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name WallpaperStyle -Value 2
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name TileWallpaper -Value 0
+
+# Refresh the desktop to apply the changes
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class Wallpaper {
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+}
+"@
+[Wallpaper]::SystemParametersInfo(20, 0, $blackImagePath, 3)
+
+# Clean up the bitmap file if needed
+Remove-Item $blackImagePath -Force
 
 Write-Host "Desktop background color set to black."
 
