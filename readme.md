@@ -17,7 +17,7 @@ Additionally, this project hosts a GitHub Pages website at [pyjama.sh](https://p
 To install BGInfo and set up the environment, run the following command in PowerShell:
 
 ```powershell
-irm "https://pyjama.sh/scripts/setup.ps1" | iex
+irm "https://pyjama.sh/scripts/install.ps1" | iex
 ```
 
 ## 🗑️ Uninstallation
