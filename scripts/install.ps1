@@ -45,11 +45,11 @@ try {
 }
 
 # Schedule Refresh.ps1 task
-$actionRefresh = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -ExecutionPolicy Bypass -Command (irm '$refreshScriptUrl' | iex)"
+$actionRefresh = New-ScheduledTaskAction -Execute "C:\Program Files\PowerShell\7\pwsh.exe" -Argument "-WindowStyle Hidden -ExecutionPolicy Bypass -Command (irm '$refreshScriptUrl' | iex)"
 $triggerDaily = New-ScheduledTaskTrigger -Daily -At "06:00"
 $triggerLogin = New-ScheduledTaskTrigger -AtLogOn
 
-Register-ScheduledTask -Action $actionRefresh -Trigger @($triggerDaily, $triggerLogin) -TaskName "BGInfoUpdate-Refresh" -User "$env:USERNAME" -RunLevel Highest
+Register-ScheduledTask -Action $actionRefresh -Trigger @($triggerDaily, $triggerLogin) -TaskName "BGInfoUpdate-Refresh" -User "$env:USERNAME"
 Write-Host "Scheduled task created to run Refresh at 6 AM daily or at user login/boot."
 
 Write-Host "Installation completed successfully."
