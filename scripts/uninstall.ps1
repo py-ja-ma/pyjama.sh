@@ -38,19 +38,15 @@ if (Test-Path $authorFilePath) {
     Write-Host "author.txt not found at $authorFilePath."
 }
 
-# Remove registered scheduled tasks
-try {
-    Unregister-ScheduledTask -TaskName "$taskName-Fetch" -Confirm:$false -ErrorAction Stop
-    Write-Host "Removed scheduled task: $taskName-Fetch."
-} catch {
-    Write-Host "Scheduled task $taskName-Fetch not found."
-}
-
-try {
-    Unregister-ScheduledTask -TaskName "$taskName-Update" -Confirm:$false -ErrorAction Stop
-    Write-Host "Removed scheduled task: $taskName-Update."
-} catch {
-    Write-Host "Scheduled task $taskName-Update not found."
+# Remove registered scheduled tasks for Fetch and Update
+$scheduleTasks = @("$taskName-Fetch", "$taskName-Update")
+foreach ($task in $scheduleTasks) {
+    try {
+        Unregister-ScheduledTask -TaskName $task -Confirm:$false -ErrorAction Stop
+        Write-Host "Removed scheduled task: $task."
+    } catch {
+        Write-Host "Scheduled task $task not found or could not be removed."
+    }
 }
 
 # Remove the entire BGInfo directory if it is empty
@@ -100,4 +96,7 @@ Write-Host "Desktop background color set to black."
 # Remove user-level environment variables
 foreach ($var in $variablesToRemove) {
     [System.Environment]::SetEnvironmentVariable($var, $null, "User")
+    Write-Host "Removed user-level environment variable: $var."
 }
+
+Write-Host "Uninstallation process completed."
