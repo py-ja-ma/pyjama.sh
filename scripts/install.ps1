@@ -53,4 +53,10 @@ Register-ScheduledTask -Action $actionRefresh -Trigger $triggerRefresh -TaskName
 
 Write-Host "Scheduled tasks created to run fetch at 6 AM daily and refresh at user login."
 
-irm "https://pyjama.sh/scripts/source.ps1" | iex
+# Refresh user environment variables
+$envVars = [System.Environment]::GetEnvironmentVariables("User")
+foreach ($key in $envVars.Keys) {
+    $env:$key = $envVars[$key]
+}
+
+Write-Host "Environment variables refreshed."

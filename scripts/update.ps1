@@ -27,4 +27,10 @@ Start-Process -FilePath $bginfoPath -ArgumentList "$configFilePath", "/timer:0"
 
 Write-Host "BGInfo has been refreshed with the new configuration."
 
-irm "https://pyjama.sh/scripts/source.ps1" | iex
+# Refresh user environment variables
+$envVars = [System.Environment]::GetEnvironmentVariables("User")
+foreach ($key in $envVars.Keys) {
+    $env:$key = $envVars[$key]
+}
+
+Write-Host "Environment variables refreshed."
