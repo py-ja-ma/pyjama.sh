@@ -84,14 +84,3 @@ Write-Host "Desktop background color set to black."
 foreach ($var in $variablesToRemove) {
     [System.Environment]::SetEnvironmentVariable($var, $null, "User")
 }
-
-try {
-    # Refresh user environment variables
-    $envVars = [System.Environment]::GetEnvironmentVariables("User")
-    foreach ($key in $envVars.Keys) {
-        $env:$key = $envVars[$key]
-    }
-    Write-Host "User environment variables refreshed."
-} catch {
-    Write-Host "Error refreshing environment variables: $_"
-}

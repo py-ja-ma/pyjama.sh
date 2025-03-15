@@ -26,14 +26,3 @@ if (-Not (Test-Path $configFilePath)) {
 Start-Process -FilePath $bginfoPath -ArgumentList "$configFilePath", "/timer:0"
 
 Write-Host "BGInfo has been refreshed with the new configuration."
-
-try {
-    # Refresh user environment variables
-    $envVars = [System.Environment]::GetEnvironmentVariables("User")
-    foreach ($key in $envVars.Keys) {
-        $env:$key = $envVars[$key]
-    }
-    Write-Host "User environment variables refreshed."
-} catch {
-    Write-Host "Error refreshing environment variables: $_"
-}

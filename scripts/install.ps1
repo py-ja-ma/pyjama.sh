@@ -52,14 +52,3 @@ Register-ScheduledTask -Action $actionFetch -Trigger $triggerFetch -TaskName "$t
 Register-ScheduledTask -Action $actionRefresh -Trigger $triggerRefresh -TaskName "$taskName-Refresh" -User "$env:USERNAME" -RunLevel Highest
 
 Write-Host "Scheduled tasks created to run fetch at 6 AM daily and refresh at user login."
-
-try {
-    # Refresh user environment variables
-    $envVars = [System.Environment]::GetEnvironmentVariables("User")
-    foreach ($key in $envVars.Keys) {
-        $env:$key = $envVars[$key]
-    }
-    Write-Host "User environment variables refreshed."
-} catch {
-    Write-Host "Error refreshing environment variables: $_"
-}

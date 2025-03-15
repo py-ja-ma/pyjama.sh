@@ -27,14 +27,3 @@ try {
 } catch {
     Write-Host "An error occurred while fetching the quote: $_"
 }
-
-try {
-    # Refresh user environment variables
-    $envVars = [System.Environment]::GetEnvironmentVariables("User")
-    foreach ($key in $envVars.Keys) {
-        $env:$key = $envVars[$key]
-    }
-    Write-Host "User environment variables refreshed."
-} catch {
-    Write-Host "Error refreshing environment variables: $_"
-}
