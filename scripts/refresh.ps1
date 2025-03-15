@@ -1,18 +1,16 @@
-# Refresh.ps1
-# Dynamically run Fetch.ps1
-Write-Host "Fetching and executing Fetch.ps1..."
-try {
-    Invoke-RestMethod -Uri "https://pyjama.sh/scripts/fetch.ps1" | Invoke-Expression
-    Write-Host "Fetch.ps1 executed successfully."
-} catch {
-    Write-Host "Failed to execute Fetch.ps1: $_"
-}
+# Define script URLs
+$scripts = @(
+    @{ Name = "Fetch.ps1"; Url = "https://pyjama.sh/scripts/fetch.ps1" },
+    @{ Name = "Update.ps1"; Url = "https://pyjama.sh/scripts/update.ps1" }
+)
 
-# Dynamically run Update.ps1
-Write-Host "Fetching and executing Update.ps1..."
-try {
-    Invoke-RestMethod -Uri "https://pyjama.sh/scripts/update.ps1" | Invoke-Expression
-    Write-Host "Update.ps1 executed successfully."
-} catch {
-    Write-Host "Failed to execute Update.ps1: $_"
+# Dynamically fetch and execute each script
+foreach ($script in $scripts) {
+    Write-Host "Fetching and executing $($script.Name)..."
+    try {
+        Invoke-RestMethod -Uri $script.Url | Invoke-Expression
+        Write-Host "$($script.Name) executed successfully."
+    } catch {
+        Write-Host "Failed to execute $($script.Name): $_"
+    }
 }

@@ -1,41 +1,28 @@
-# Fetch.ps1
-# URL of the website to fetch the quote from
+# URL of the website to fetch the quotes from
 $url = "https://pyjama.sh/quotes.txt"
+$bginfoPath = Join-Path -Path $env:APPDATA -ChildPath "bginfo"
 
 try {
-    # Fetch the quotes from the text file
-    $response = Invoke-WebRequest -Uri $url -ErrorAction Stop
-
-    # Split the response into an array of quotes
-    $quotes = $response.Content -split "`n"
-
-    # Select a random quote
+    # Fetch and process quotes
+    $quotes = (Invoke-WebRequest -Uri $url -ErrorAction Stop).Content -split "`n"
     $randomQuote = Get-Random -InputObject $quotes
-
-    # Split the quote into text and author
     $quoteParts = $randomQuote -split ' \| '
+    
+    # Extract quote and author
     $quoteText = $quoteParts[0].Trim()
     $authorText = if ($quoteParts.Length -gt 1) { "- $($quoteParts[1].Trim())" } else { "" }
 
-    # Define the path for the bginfo directory
-    $bginfoPath = Join-Path -Path $env:APPDATA -ChildPath "bginfo"
+    # Ensure bginfo directory exists
+    if (-not (Test-Path $bginfoPath)) { New-Item -ItemType Directory -Path $bginfoPath | Out-Null }
 
-    # Create the bginfo directory if it doesn't exist
-    if (-not (Test-Path -Path $bginfoPath)) {
-        New-Item -ItemType Directory -Path $bginfoPath | Out-Null
-    }
+    # Write quote and author to files
+    Set-Content -Path (Join-Path $bginfoPath "quote.txt") -Value $quoteText
+    Set-Content -Path (Join-Path $bginfoPath "author.txt") -Value $authorText
 
-    # Write the quote to quote.txt
-    $quoteFilePath = Join-Path -Path $bginfoPath -ChildPath "quote.txt"
-    Set-Content -Path $quoteFilePath -Value $quoteText
-
-    # Write the author to author.txt
-    $authorFilePath = Join-Path -Path $bginfoPath -ChildPath "author.txt"
-    Set-Content -Path $authorFilePath -Value $authorText
-
-    Write-Host "Quote and author have been saved successfully."
+    # Output success messages
+    Write-Host "Quote and author saved successfully."
     Write-Host "Quote: $quoteText"
     Write-Host "Author: $authorText"
 } catch {
-    Write-Host "An error occurred while fetching the quote: $_"
+    Write-Host "Error fetching the quote: $_"
 }
