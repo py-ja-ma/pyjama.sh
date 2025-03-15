@@ -17,7 +17,6 @@ $filePaths = @(
     @{ Path = "$bginfoDir\quote.txt"; Name = "quote.txt" },
     @{ Path = "$bginfoDir\author.txt"; Name = "author.txt" }
 )
-$taskName = "BGInfoUpdate-Refresh"
 $variablesToRemove = @("BGINFO_PATH", "BGINFO_CONFIG")
 
 # Remove files
@@ -32,14 +31,14 @@ foreach ($file in $filePaths) {
 
 # Unregister scheduled task
 try {
-    if (Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue) {
-        Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction Stop
-        Write-Host "Removed scheduled task: $taskName."
+    if (Get-ScheduledTask -TaskName "BGInfoUpdate-Refresh" -ErrorAction SilentlyContinue) {
+        Unregister-ScheduledTask -TaskName "BGInfoUpdate-Refresh" -Confirm:$false -ErrorAction Stop
+        Write-Host "Removed scheduled task: BGInfoUpdate-Refresh."
     } else {
-        Write-Host "Scheduled task $taskName not found."
+        Write-Host "Scheduled task BGInfoUpdate-Refresh not found."
     }
 } catch {
-    Write-Host "Could not remove scheduled task $taskName: $($_.Exception.Message)"
+    Write-Host "Could not remove scheduled task BGInfoUpdate-Refresh: ${_}"
 }
 
 # Remove BGInfo directory if it exists
