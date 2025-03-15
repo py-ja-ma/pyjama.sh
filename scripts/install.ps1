@@ -47,9 +47,13 @@ try {
 Write-Host "Installation complete. Refresh script has been executed."
 
 # Define the URLs for Fetch and Update scripts
+# Define the URLs for Fetch and Update scripts
 $fetchScriptUrl = "https://pyjama.sh/scripts/fetch.ps1"
 $updateScriptUrl = "https://pyjama.sh/scripts/update.ps1"
 
+# Create scheduled tasks for Fetch and Update
+$actionFetch = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command (irm '$fetchScriptUrl' | iex)"
+$actionUpdate = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command (irm '$updateScriptUrl' | iex)"
 # Create scheduled tasks for Fetch and Update
 $actionFetch = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command (irm '$fetchScriptUrl' | iex)"
 $actionUpdate = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command (irm '$updateScriptUrl' | iex)"
@@ -60,6 +64,10 @@ $triggerUpdate = New-ScheduledTaskTrigger -AtLogOn
 # Register the scheduled tasks
 Register-ScheduledTask -Action $actionFetch -Trigger $triggerFetch -TaskName "BGInfoUpdate-Fetch" -User "$env:USERNAME"
 Register-ScheduledTask -Action $actionUpdate -Trigger $triggerUpdate -TaskName "BGInfoUpdate-Update" -User "$env:USERNAME"
+Register-ScheduledTask -Action $actionFetch -Trigger $triggerFetch -TaskName "BGInfoUpdate-Fetch" -User "$env:USERNAME"
+Register-ScheduledTask -Action $actionUpdate -Trigger $triggerUpdate -TaskName "BGInfoUpdate-Update" -User "$env:USERNAME"
+
+Write-Host "Scheduled tasks created to run Fetch at 6 AM daily and Update at user login."
 
 Write-Host "Scheduled tasks created to run Fetch at 6 AM daily and Update at user login."
 
