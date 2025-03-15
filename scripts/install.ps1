@@ -70,4 +70,3 @@ Register-ScheduledTask -Action $actionUpdate -Trigger $triggerUpdate -TaskName "
 Write-Host "Scheduled tasks created to run Fetch at 6 AM daily and Update at user login."
 
 Write-Host "Scheduled tasks created to run Fetch at 6 AM daily and Update at user login."
-
