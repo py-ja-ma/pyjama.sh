@@ -1,5 +1,26 @@
 # Uninstall.ps1
-# Define the paths for BGInfo and the configuration file
+# Ensure BGInfo is not running and release file locks
+
+Write-Host "Checking if BGInfo is currently running..."
+
+# Attempt to stop any running BGInfo processes
+$bginfoProcess = Get-Process -Name "bginfo" -ErrorAction SilentlyContinue
+if ($bginfoProcess) {
+    try {
+        Stop-Process -Name "bginfo" -Force -ErrorAction Stop
+        Write-Host "Stopped running BGInfo processes."
+    } catch {
+        Write-Host "Failed to stop BGInfo processes: $_"
+    }
+} else {
+    Write-Host "No BGInfo processes are currently running."
+}
+
+# Delay to ensure files are released
+Start-Sleep -Seconds 2
+Write-Host "Proceeding with uninstallation..."
+
+# Define the paths for BGInfo and related files
 $bginfoDir = "$env:APPDATA\bginfo"
 $bginfoPath = "$bginfoDir\bginfo.exe"
 $configFilePath = "$bginfoDir\config.bgi"
@@ -42,8 +63,10 @@ if (Test-Path $authorFilePath) {
 $scheduleTasks = @("$taskName-Fetch", "$taskName-Update")
 foreach ($task in $scheduleTasks) {
     try {
-        Unregister-ScheduledTask -TaskName $task -Confirm:$false -ErrorAction Stop
-        Write-Host "Removed scheduled task: $task."
+        if (Get-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue) {
+            Unregister-ScheduledTask -TaskName $task -Confirm:$false -ErrorAction Stop
+            Write-Host "Removed scheduled task: $task."
+        }
     } catch {
         Write-Host "Scheduled task $task not found or could not be removed."
     }
