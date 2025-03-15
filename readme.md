@@ -20,6 +20,7 @@ To install BGInfo and set up the environment, run the following command in Admin
 irm "https://pyjama.sh/scripts/install.ps1" | iex
 ```
 
+
 ## 🌊 Refresh
 
 To get your background to update outside the normal schedule / parameters run the following in PowerShell:
@@ -29,7 +30,7 @@ irm "https://pyjama.sh/scripts/refresh.ps1" | iex
 ```
 
 
-## 🗑️ Uninstallation
+## 🗑️ Uninstal
 
 To uninstall BGInfo and remove all related files, run the following command in Admin PowerShell:
 
