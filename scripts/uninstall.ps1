@@ -4,6 +4,7 @@ $bginfoDir = "$env:APPDATA\bginfo"
 $bginfoPath = "$bginfoDir\bginfo.exe"
 $configFilePath = "$bginfoDir\config.bgi"
 $taskName = "BGInfoUpdate"
+$variablesToRemove = @("BGINFO_QUOTE", "BGINFO_AUTHOR", "BGINFO_PATH", "BGINFO_CONFIG")
 
 # Remove the BGInfo executable and configuration file if they exist
 if (Test-Path $bginfoPath) {
@@ -79,10 +80,9 @@ Remove-Item $blackImagePath -Force
 
 Write-Host "Desktop background color set to black."
 
-# Remove environment variables
-[System.Environment]::SetEnvironmentVariable("BGINFO_PATH", $null, [System.EnvironmentVariableTarget]::User)
-[System.Environment]::SetEnvironmentVariable("BGINFO_CONFIG", $null, [System.EnvironmentVariableTarget]::User)
-[System.Environment]::SetEnvironmentVariable("BGINFO_QUOTE", $null, [System.EnvironmentVariableTarget]::User)
-[System.Environment]::SetEnvironmentVariable("BGINFO_AUTHOR", $null, [System.EnvironmentVariableTarget]::User)
+# Remove user-level environment variables
+foreach ($var in $variablesToRemove) {
+    [System.Environment]::SetEnvironmentVariable($var, $null, "User")
+}
 
 Write-Host "Environment variables removed."
