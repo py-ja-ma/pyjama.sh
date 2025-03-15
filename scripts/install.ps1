@@ -45,7 +45,7 @@ try {
 }
 
 # Schedule Refresh.ps1 task
-$actionRefresh = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -Command (irm '$refreshScriptUrl' | iex)"
+$actionRefresh = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -ExecutionPolicy Bypass -Command (irm '$refreshScriptUrl' | iex)"
 $triggerDaily = New-ScheduledTaskTrigger -Daily -At "06:00"
 $triggerLogin = New-ScheduledTaskTrigger -AtLogOn
 
