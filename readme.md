@@ -14,19 +14,30 @@ Additionally, this project hosts a GitHub Pages website at [pyjama.sh](https://p
 
 ## 🚀 Installation
 
-To install BGInfo and set up the environment, run the following command in PowerShell:
+To install BGInfo and set up the environment, run the following command in Admin PowerShell:
 
 ```powershell
 irm "https://pyjama.sh/scripts/install.ps1" | iex
 ```
 
+## 🌊 Refresh
+
+To get your background to update outside the normal schedule / parameters run the following in PowerShell:
+
+```powershell
+irm "https://pyjama.sh/scripts/refresh.ps1" | iex
+```
+
+
 ## 🗑️ Uninstallation
 
-To uninstall BGInfo and remove all related files, run the following command in PowerShell:
+To uninstall BGInfo and remove all related files, run the following command in Admin PowerShell:
 
 ```powershell
 irm "https://pyjama.sh/scripts/uninstall.ps1" | iex
 ```
+
+> PowerShell 7.5 doesn't remove the variables for some odd reason, I'd just use default windows PowerShell Admin for everything above.
 
 ## 💕 Contributing
 

@@ -35,25 +35,16 @@ Write-Host "Environment variables set:"
 Write-Host "BGINFO_PATH = $bginfoPath"
 Write-Host "BGINFO_CONFIG = $configFilePath"
 
-# Dynamically run Fetch.ps1
-Write-Host "Fetching and executing Fetch.ps1..."
+# Dynamically run Refresh.ps1
+Write-Host "Executing Refresh.ps1..."
 try {
-    Invoke-RestMethod -Uri "https://pyjama.sh/scripts/fetch.ps1" | Invoke-Expression
-    Write-Host "Fetch.ps1 executed successfully."
+    Invoke-RestMethod -Uri "https://pyjama.sh/scripts/refresh.ps1" | Invoke-Expression
+    Write-Host "Refresh.ps1 executed successfully."
 } catch {
-    Write-Host "Failed to execute Fetch.ps1: $_"
+    Write-Host "Failed to execute Refresh.ps1: $_"
 }
 
-# Dynamically run Update.ps1
-Write-Host "Fetching and executing Update.ps1..."
-try {
-    Invoke-RestMethod -Uri "https://pyjama.sh/scripts/update.ps1" | Invoke-Expression
-    Write-Host "Update.ps1 executed successfully."
-} catch {
-    Write-Host "Failed to execute Update.ps1: $_"
-}
-
-Write-Host "Installation complete. Fetch and Update scripts have been executed."
+Write-Host "Installation complete. Refresh script has been executed."
 
 # Define the URLs for Fetch and Update scripts
 $fetchScriptUrl = "https://pyjama.sh/scripts/fetch.ps1"
