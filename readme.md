@@ -1,54 +1,66 @@
 # 🛰️ Overview
 
-This project provides a PowerShell-based setup for [BGInfo](https://docs.microsoft.com/en-us/sysinternals/downloads/bginfo), a tool that displays system information on the desktop background. The setup includes scripts for installation, fetching quotes, refreshing the background, and uninstalling the application.
+This project provides a PowerShell-based setup for [BGInfo](https://learn.microsoft.com/en-us/sysinternals/downloads/bginfo), a tool that displays system information on the desktop background. The setup includes scripts for installation, fetching motivational quotes, refreshing the background, and uninstalling the application.
 
-Additionally, this project hosts a GitHub Pages website at [pyjama.sh](https://pyjama.sh) that displays a motivational quote each time the background is refreshed.
+Additionally, this project hosts a GitHub Pages website at [pyjama.sh](https://pyjama.sh) that displays a motivational quote each time the site is refreshed.
+
+---
 
 ## 🍻 Features
 
-- Downloads and installs BGInfo if not already present.
-- Fetches a random motivational quote from a specified URL and sets it as an environment variable.
-- Refreshes the desktop background with the latest configuration.
-- Creates scheduled tasks to fetch quotes daily at 6 AM and refresh the background at user login.
-- Provides an uninstall script to remove all changes made during setup.
+- Automatically downloads and installs BGInfo if it's not already available.
+- Fetches a random motivational quote from a specified URL.
+- Updates the desktop background with the latest quote.
+- Sets up scheduled tasks to refresh quotes daily at 6 AM and at user login.
+- Includes an uninstall script to remove all changes made during the setup.
+
+---
 
 ## 🚀 Installation
 
-To install BGInfo and set up the environment, run the following command in Admin PowerShell:
+To install BGInfo and configure the environment, execute the following command in **PowerShell 7** (pwsh) with Administrator privileges:
 
 ```powershell
 irm "https://pyjama.sh/scripts/install.ps1" | iex
 ```
 
+> **Note:** PowerShell 5 is not compatible with this script. Please install and use [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell) for optimal performance.
+
+---
 
 ## 🌊 Refresh
 
-To get your background to update outside the normal schedule / parameters run the following in PowerShell:
+To manually update your desktop background outside the scheduled tasks, run the following command in **PowerShell 7**:
 
 ```powershell
 irm "https://pyjama.sh/scripts/refresh.ps1" | iex
 ```
 
+---
 
-## 🗑️ Uninstal
+## 🗑️ Uninstallation
 
-To uninstall BGInfo and remove all related files, run the following command in Admin PowerShell:
+To remove BGInfo and all related files, execute the following command in **PowerShell 7** with Administrator privileges:
 
 ```powershell
 irm "https://pyjama.sh/scripts/uninstall.ps1" | iex
 ```
 
-> PowerShell 7.5 doesn't remove the variables for some odd reason, I'd just use default windows PowerShell Admin for everything above.
+---
 
 ## 💕 Contributing
 
-Feel free to fork this repository and make improvements or modifications. If you have suggestions or find issues, please open an issue or submit a pull request.
+Contributions are welcome! Feel free to fork this repository to make improvements or modifications. If you encounter issues or have suggestions, please open an issue or submit a pull request.
+
+---
 
 ## ©️ License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is open-source and licensed under the [MIT License](LICENSE).
+
+---
 
 ## 🙏 Acknowledgments
 
-- Inspired by the need for daily motivation and positivity.
-- Thanks to all the contributors and the community for their support.
+- Inspired by the quest for daily motivation and positivity.
+- Special thanks to all contributors and the broader community for their support.
