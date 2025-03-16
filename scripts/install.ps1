@@ -22,7 +22,7 @@ if (-not (Test-Path $bginfoPath)) {
 # Download configuration file if missing
 if (-not (Test-Path $configFilePath)) {
     Write-Host "Downloading BGInfo configuration file..."
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pjdotdev/pyjama.sh/main/config.bgi" -OutFile $configFilePath
+    Invoke-WebRequest -Uri "https://pyjama.sh/config.bgi" -OutFile $configFilePath
     Write-Host "Configuration file downloaded to $configFilePath."
 } else {
     Write-Host "Configuration file already exists at $configFilePath."
